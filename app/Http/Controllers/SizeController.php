@@ -15,7 +15,7 @@ class SizeController extends Controller
         $all_Sizes = Size::all();
         if ($all_Sizes) {
             $response = [
-                "data" => [
+                "body" => [
                     "status" => 200,
                     "all_sizes" => $all_Sizes
                 ],
@@ -23,7 +23,7 @@ class SizeController extends Controller
             return response()->json($response);
         } else {
             $response = [
-                "data" => [
+                "body" => [
                     "status" => 500,
                     "message" => "Something went wrong"
                 ],
@@ -47,7 +47,7 @@ class SizeController extends Controller
         ];
         if ($size->save()) {
             $response = [
-                "data" => [
+                "body" => [
                     "status" => 200,
                     "sizeDetails" => $sizeDetails
                 ],
@@ -55,7 +55,7 @@ class SizeController extends Controller
             return response()->json($response);
         } else {
             $response = [
-                "data" => [
+                "body" => [
                     "status" => 500,
                     "message" => "Something went wrong"
                 ],
@@ -78,7 +78,7 @@ class SizeController extends Controller
         $size = Size::find($id);
         if (!empty($size)) {
             $response = [
-                "data" => [
+                "body" => [
                     "status" => 200,
                     "size" => $size
                 ],
@@ -86,7 +86,7 @@ class SizeController extends Controller
             return response()->json($response);
         } else {
             $response = [
-                "data" => [
+                "body" => [
                     "status" => 500,
                     "message" => "Doesn't exist"
                 ],
