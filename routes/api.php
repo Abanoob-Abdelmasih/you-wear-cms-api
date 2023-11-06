@@ -29,6 +29,7 @@ Route::prefix('/size')->name('size.')->group(function () use ($data) {
     });
     Route::post('create', [SizeController::class, 'create']);
     Route::get('all', [SizeController::class, 'index']);
-    Route::post('update/{id}', [SizeController::class, 'update']);
+    Route::post('{id}/delete', [SizeController::class, 'destroy']);
+    Route::post('{id}/update', [SizeController::class, 'update']);
     Route::get('/{id}', [SizeController::class, 'show']);
 });
