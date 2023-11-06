@@ -152,6 +152,34 @@ class SizeController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $size = Size::find($id);
+
+        if (!empty($size)) {
+            if ($size->delete()) {
+                $response = [
+                    "body" => [
+                        "status" => 200,
+                        "message" => "Deleted successfully"
+                    ],
+                ];
+                return response()->json($response);
+            } else {
+                $response = [
+                    "body" => [
+                        "status" => 500,
+                        "message" => "Something went wrong"
+                    ],
+                ];
+                return response()->json($response);
+            }
+        } else {
+            $response = [
+                "body" => [
+                    "status" => 500,
+                    "message" => "Size doesn't exist"
+                ],
+            ];
+            return response()->json($response);
+        }
     }
 }
