@@ -40,16 +40,11 @@ class SizeController extends Controller
         $size->name = ucwords($request->name);
         $size->abbreviation =  strtoupper($request->abbreviation);
         $size->isActive = $request->isActive;
-        $sizeDetails = [
-            "name" => $size->name,
-            "abbreviation" => $size->abbreviation,
-            "isActive" => $size->isActive
-        ];
         if ($size->save()) {
             $response = [
                 "body" => [
                     "status" => 200,
-                    "sizeDetails" => $sizeDetails
+                    "sizeDetails" => $size
                 ],
             ];
             return response()->json($response);
