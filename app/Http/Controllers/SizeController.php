@@ -75,7 +75,24 @@ class SizeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $size = Size::find($id);
+        if (!empty($size)) {
+            $response = [
+                "data" => [
+                    "status" => 200,
+                    "size" => $size
+                ],
+            ];
+            return response()->json($response);
+        } else {
+            $response = [
+                "data" => [
+                    "status" => 500,
+                    "message" => "Doesn't exist"
+                ],
+            ];
+            return response()->json($response);
+        }
     }
 
     /**
