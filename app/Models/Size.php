@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Size extends Model
 {
-    protected $hidden = ['id', "created_at", "updated_at"];
+    protected $hidden = ["created_at", "updated_at"];
     use HasFactory;
 }
