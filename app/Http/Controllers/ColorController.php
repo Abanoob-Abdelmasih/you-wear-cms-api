@@ -15,7 +15,23 @@ class ColorController extends Controller
      */
     public function index()
     {
-        return "test";
+        $all_colors = Color::all();
+        if ($all_colors) {
+            $response = [
+                "body" => [
+                    "status" => 200,
+                    "all_colors" => $all_colors
+                ],
+            ];
+            return response()->json($response);
+        } else {
+            $response = [
+                "body" => [
+                    "status" => 500,
+                    "message" => "Something went wrong"
+                ],
+            ];
+        };
     }
 
     /**
