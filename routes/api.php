@@ -28,6 +28,7 @@ Route::prefix('/size')->name('size.')->group(function () use ($data) {
         return response()->json($data);
     });
 
+    Route::get('/{id}', [SizeController::class, 'show']);
     Route::post('create', [SizeController::class, 'create']);
     Route::get('all', [SizeController::class, 'index']);
 });
