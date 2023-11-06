@@ -20,14 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-$data = [
-    '1' => "test2", "testmore"
-];
-
-Route::prefix('/size')->name('size.')->group(function () use ($data) {
-    Route::get('test', function () use ($data) {
-        return response()->json($data);
-    });
+Route::prefix('/size')->name('size.')->group(function () {
     Route::post('create', [SizeController::class, 'create']);
     Route::get('all', [SizeController::class, 'index']);
     Route::post('{id}/delete', [SizeController::class, 'destroy']);
