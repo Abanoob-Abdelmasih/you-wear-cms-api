@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
 use Illuminate\Http\Request;
+
+$error_exist = "Something went wrong";
+$doesnt_exist = "Color doesn't exist";
 
 class ColorController extends Controller
 {
@@ -17,9 +21,28 @@ class ColorController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $color = new Color();
+        $color->name = ucwords($request->name);
+        $color->hexcode =  strtoupper($request->hexcode);
+        $color->isActive = $request->isActive;
+        if ($color->save()) {
+            $response = [
+                "body" => [
+                    "status" => 200,
+                    "colorDetails" => $color
+                ],
+            ];
+            return response()->json($response);
+        } else {
+            $response = [
+                "body" => [
+                    "status" => 500,
+                    "message" => "Something went wrong"
+                ],
+            ];
+        };
     }
 
     /**
