@@ -28,10 +28,7 @@ Route::prefix('/size')->name('size.')->group(function () {
     Route::get('/{id}', [SizeController::class, 'show']);
 });
 
-Route::prefix('/color')->name('color.')->group(function () use ($data) {
-    Route::get('test', function () use ($data) {
-        return response()->json($data);
-    });
+Route::prefix('/color')->name('color.')->group(function () {
     Route::post('create', [ColorController::class, 'create']);
     Route::get('all', [ColorController::class, 'index']);
     Route::post('{id}/delete', [ColorController::class, 'destroy']);
