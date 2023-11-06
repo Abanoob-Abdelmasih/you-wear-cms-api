@@ -87,7 +87,7 @@ class ColorController extends Controller
             $response = [
                 "body" => [
                     "status" => 500,
-                    "message" => "Doesn't exist"
+                    "message" => "Color doesn't exist"
                 ],
             ];
             return response()->json($response);
@@ -151,6 +151,34 @@ class ColorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $color = Color::find($id);
+
+        if (!empty($color)) {
+            if ($color->delete()) {
+                $response = [
+                    "body" => [
+                        "status" => 200,
+                        "message" => "Deleted successfully"
+                    ],
+                ];
+                return response()->json($response);
+            } else {
+                $response = [
+                    "body" => [
+                        "status" => 500,
+                        "message" => "Something went wrong"
+                    ],
+                ];
+                return response()->json($response);
+            }
+        } else {
+            $response = [
+                "body" => [
+                    "status" => 500,
+                    "message" => "Color doesn't exist"
+                ],
+            ];
+            return response()->json($response);
+        }
     }
 }
