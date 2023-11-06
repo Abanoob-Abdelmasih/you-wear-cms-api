@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\SizeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +33,15 @@ Route::prefix('/size')->name('size.')->group(function () use ($data) {
     Route::post('{id}/delete', [SizeController::class, 'destroy']);
     Route::post('{id}/update', [SizeController::class, 'update']);
     Route::get('/{id}', [SizeController::class, 'show']);
+});
+
+Route::prefix('/color')->name('color.')->group(function () use ($data) {
+    Route::get('test', function () use ($data) {
+        return response()->json($data);
+    });
+    Route::post('create', [ColorController::class, 'create']);
+    Route::get('all', [ColorController::class, 'index']);
+    Route::post('{id}/delete', [ColorController::class, 'destroy']);
+    Route::post('{id}/update', [ColorController::class, 'update']);
+    Route::get('/{id}', [ColorController::class, 'show']);
 });
