@@ -107,7 +107,43 @@ class ColorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $color = Color::find($id);
+        if (!empty($color)) {
+            $color->name = $request->name === null || '' ? ucwords($color->name) : ucwords($request->name);
+            $color->hexcode =  $request->hexcode === null || '' ? strtoupper($color->hexcode) : strtoupper($request->hexcode);
+            $color->isActive = $request->isActive === null || '' ? $color->isActive : $request->isActive;
+            $colorDetails = [
+                "name" => $color->name,
+                "hexcode" => $color->hexcode,
+                "isActive" => $color->isActive
+            ];
+            if ($color->save()) {
+                $response = [
+                    "body" => [
+                        "status" => 200,
+                        "message" => "Updated successfully",
+                        "colorDetails" => $color
+                    ],
+                ];
+                return response()->json($response);
+            } else {
+                $response = [
+                    "body" => [
+                        "status" => 500,
+                        "message" => "Something went wrong"
+                    ],
+                ];
+                return response()->json($response);
+            };
+        } else {
+            $response = [
+                "body" => [
+                    "status" => 500,
+                    "message" => "Color doesn't exist"
+                ],
+            ];
+            return response()->json($response);
+        }
     }
 
     /**
