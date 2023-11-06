@@ -27,9 +27,8 @@ Route::prefix('/size')->name('size.')->group(function () use ($data) {
     Route::get('test', function () use ($data) {
         return response()->json($data);
     });
-
-    Route::get('/{id}', [SizeController::class, 'show']);
-    Route::post('update/{id}', [SizeController::class, 'update']);
     Route::post('create', [SizeController::class, 'create']);
     Route::get('all', [SizeController::class, 'index']);
+    Route::post('update/{id}', [SizeController::class, 'update']);
+    Route::get('/{id}', [SizeController::class, 'show']);
 });
