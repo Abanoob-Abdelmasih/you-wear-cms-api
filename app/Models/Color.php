@@ -9,4 +9,9 @@ class Color extends Model
 {
     protected $hidden = ["created_at", "updated_at"];
     use HasFactory;
+
+    public function size()
+    {
+        $this->belongsToMany(Color::class, ColorSize::class);
+    }
 }
