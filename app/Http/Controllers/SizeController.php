@@ -108,7 +108,43 @@ class SizeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $size = Size::find($id);
+        if (!empty($size)) {
+            $size->name = $request->name === null || '' ? ucwords($size->name) : ucwords($request->name);
+            $size->abbreviation =  $request->abbreviation === null || '' ? strtoupper($size->abbreviation) : strtoupper($request->abbreviation);
+            $size->isActive = $request->isActive === null || '' ? $size->isActive : $request->isActive;
+            $sizeDetails = [
+                "name" => $size->name,
+                "abbreviation" => $size->abbreviation,
+                "isActive" => $size->isActive
+            ];
+            if ($size->save()) {
+                $response = [
+                    "body" => [
+                        "status" => 200,
+                        "message" => "Updated successfully",
+                        "sizeDetails" => $sizeDetails
+                    ],
+                ];
+                return response()->json($response);
+            } else {
+                $response = [
+                    "body" => [
+                        "status" => 500,
+                        "message" => "Something went wrong"
+                    ],
+                ];
+                return response()->json($response);
+            };
+        } else {
+            $response = [
+                "body" => [
+                    "status" => 500,
+                    "message" => "Size doesn't exist"
+                ],
+            ];
+            return response()->json($response);
+        }
     }
 
     /**
