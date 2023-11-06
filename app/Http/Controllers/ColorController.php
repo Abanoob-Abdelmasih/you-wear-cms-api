@@ -74,7 +74,24 @@ class ColorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $color = Color::find($id);
+        if (!empty($color)) {
+            $response = [
+                "body" => [
+                    "status" => 200,
+                    "color" => $color
+                ],
+            ];
+            return response()->json($response);
+        } else {
+            $response = [
+                "body" => [
+                    "status" => 500,
+                    "message" => "Doesn't exist"
+                ],
+            ];
+            return response()->json($response);
+        }
     }
 
     /**
