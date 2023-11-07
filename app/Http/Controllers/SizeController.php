@@ -185,17 +185,17 @@ class SizeController extends Controller
         // $color->sizes()->sync([1, 2]);
         // dd($color);
 
-        $configOptionData = [
-            //  #where 1 and 2 are size ID's
-            1 => [
-                "quantity" => 2
-            ],
-            2 => [
-                "quantity" => 4
-            ]
-        ];
-        $color = Color::find(2);
-        $color->sizes()->sync($configOptionData);
+        // $configOptionData = [
+        //     //  #where 1 and 2 are size ID's
+        //     1 => [
+        //         "quantity" => 2
+        //     ],
+        //     2 => [
+        //         "quantity" => 4
+        //     ]
+        // ];
+        // $color = Color::find(2);
+        // $color->sizes()->sync($configOptionData);
 
 
         // $sizes = Color::find(2)->sizes;
