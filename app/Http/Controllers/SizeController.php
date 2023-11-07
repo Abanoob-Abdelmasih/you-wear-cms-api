@@ -16,7 +16,7 @@ class SizeController extends Controller
         $all_Sizes = Size::all();
         if ($all_Sizes) {
             $response = [
-                "body" => [
+                "data" => [
                     "status" => 200,
                     "all_sizes" => $all_Sizes
                 ],
@@ -24,7 +24,7 @@ class SizeController extends Controller
             return response()->json($response);
         } else {
             $response = [
-                "body" => [
+                "data" => [
                     "status" => 500,
                     "message" => "Something went wrong"
                 ],
