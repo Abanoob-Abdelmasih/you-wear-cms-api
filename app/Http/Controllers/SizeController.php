@@ -16,16 +16,16 @@ class SizeController extends Controller
         $all_Sizes = Size::all();
         if ($all_Sizes) {
             $response = [
+                "status" => 200,
                 "data" => [
-                    "status" => 200,
                     "all_sizes" => $all_Sizes
                 ],
             ];
             return response()->json($response);
         } else {
             $response = [
+                "status" => 500,
                 "data" => [
-                    "status" => 500,
                     "message" => "Something went wrong"
                 ],
             ];
