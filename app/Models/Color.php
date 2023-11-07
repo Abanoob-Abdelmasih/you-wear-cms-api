@@ -13,6 +13,6 @@ class Color extends Model
 
     public function sizes()
     {
-        return $this->belongsToMany(Size::class, ColorSize::class)->withTimestamps();
+        return $this->belongsToMany(Size::class, ColorSize::class)->withTimestamps()->as('configuration');
     }
 }
