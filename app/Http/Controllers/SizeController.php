@@ -179,10 +179,29 @@ class SizeController extends Controller
         }
     }
 
-    public function temp(Request $request)
+    public function many2ManyExamples(Request $request)
     {
+        // $color = Color::find(2);
+        // $color->sizes()->sync([1, 2]);
+        // dd($color);
+
+        $configOptionData = [
+            //  #where 1 and 2 are size ID's
+            1 => [
+                "quantity" => 2
+            ],
+            2 => [
+                "quantity" => 4
+            ]
+        ];
         $color = Color::find(2);
-        $color->sizes()->sync([1, 2]);
-        dd($color);
+        $color->sizes()->sync($configOptionData);
+
+
+        // $sizes = Color::find(2)->sizes;
+        // return $sizes;
+
+        // $sizes = Color::find(2)->load("sizes");
+        // return $sizes;
     }
 }
