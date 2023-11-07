@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('color_size', function (Blueprint $table) {
+        Schema::create('color_sizes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('color_id');
             $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
