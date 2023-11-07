@@ -36,4 +36,4 @@ Route::prefix('/color')->name('color.')->group(function () {
     Route::get('/{id}', [ColorController::class, 'show']);
 });
 
-Route::get('/test-piv', [SizeController::class,'temp']);
+Route::get('/test-piv', [SizeController::class,'many2ManyExamples']);
