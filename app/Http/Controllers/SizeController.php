@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Color;
 use App\Models\Size;
 use Illuminate\Http\Request;
 
@@ -176,5 +177,12 @@ class SizeController extends Controller
             ];
             return response()->json($response);
         }
+    }
+
+    public function temp(Request $request)
+    {
+        $color = Color::find(2);
+        $color->sizes()->sync([1, 2]);
+        dd($color);
     }
 }
