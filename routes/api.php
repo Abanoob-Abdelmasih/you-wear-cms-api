@@ -35,3 +35,5 @@ Route::prefix('/color')->name('color.')->group(function () {
     Route::post('{id}/update', [ColorController::class, 'update']);
     Route::get('/{id}', [ColorController::class, 'show']);
 });
+
+Route::get('/test-piv', [SizeController::class,'temp']);
