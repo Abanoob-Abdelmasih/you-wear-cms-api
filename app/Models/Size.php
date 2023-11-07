@@ -12,6 +12,6 @@ class Size extends Model
     use HasFactory;
     public function colors()
     {
-       return $this->belongsToMany(Color::class, ColorSize::class);
+       return $this->belongsToMany(Color::class, ColorSize::class)->withTimestamps();
     }
 }
