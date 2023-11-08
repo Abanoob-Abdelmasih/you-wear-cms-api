@@ -43,16 +43,16 @@ class SizeController extends Controller
         $size->isActive = $request->isActive;
         if ($size->save()) {
             $response = [
-                "body" => [
-                    "status" => 200,
+                "status" => 200,
+                "data" => [
                     "sizeDetails" => $size
                 ],
             ];
             return response()->json($response);
         } else {
             $response = [
-                "body" => [
-                    "status" => 500,
+                "status" => 500,
+                "data" => [
                     "message" => "Something went wrong"
                 ],
             ];
@@ -74,16 +74,16 @@ class SizeController extends Controller
         $size = Size::find($id);
         if (!empty($size)) {
             $response = [
-                "body" => [
-                    "status" => 200,
+                "status" => 200,
+                "data" => [
                     "size" => $size
                 ],
             ];
             return response()->json($response);
         } else {
             $response = [
-                "body" => [
-                    "status" => 500,
+                "status" => 500,
+                "data" => [
                     "message" => "Doesn't exist"
                 ],
             ];
@@ -116,8 +116,8 @@ class SizeController extends Controller
             ];
             if ($size->save()) {
                 $response = [
-                    "body" => [
-                        "status" => 200,
+                    "status" => 200,
+                    "data" => [
                         "message" => "Updated successfully",
                         "sizeDetails" => $sizeDetails
                     ],
@@ -125,8 +125,8 @@ class SizeController extends Controller
                 return response()->json($response);
             } else {
                 $response = [
-                    "body" => [
-                        "status" => 500,
+                    "status" => 500,
+                    "data" => [
                         "message" => "Something went wrong"
                     ],
                 ];
@@ -134,8 +134,8 @@ class SizeController extends Controller
             };
         } else {
             $response = [
-                "body" => [
-                    "status" => 500,
+                "status" => 500,
+                "data" => [
                     "message" => "Size doesn't exist"
                 ],
             ];
@@ -153,16 +153,16 @@ class SizeController extends Controller
         if (!empty($size)) {
             if ($size->delete()) {
                 $response = [
-                    "body" => [
-                        "status" => 200,
+                    "status" => 200,
+                    "data" => [
                         "message" => "Deleted successfully"
                     ],
                 ];
                 return response()->json($response);
             } else {
                 $response = [
-                    "body" => [
-                        "status" => 500,
+                    "status" => 500,
+                    "data" => [
                         "message" => "Something went wrong"
                     ],
                 ];
@@ -170,8 +170,8 @@ class SizeController extends Controller
             }
         } else {
             $response = [
-                "body" => [
-                    "status" => 500,
+                "status" => 500,
+                "data" => [
                     "message" => "Size doesn't exist"
                 ],
             ];
