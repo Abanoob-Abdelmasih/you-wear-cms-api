@@ -189,6 +189,11 @@ class SizeController extends Controller
         }
     }
 
+    public function convertActive()
+    {
+    }
+
+
     public function many2ManyExamples(Request $request)
     {
         // $color = Color::find(2);
