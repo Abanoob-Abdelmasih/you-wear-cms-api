@@ -107,7 +107,6 @@ class ColorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
         $color = Color::find($id);
         if (!empty($color)) {
             $color->name = $request->name === null || '' ? ucwords($color->name) : ucwords($request->name);
