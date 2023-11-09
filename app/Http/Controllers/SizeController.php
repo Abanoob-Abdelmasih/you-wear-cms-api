@@ -155,7 +155,8 @@ class SizeController extends Controller
                 $response = [
                     "status" => 200,
                     "data" => [
-                        "message" => "Deleted successfully"
+                        "message" => "Deleted successfully",
+                        "sizes" => Size::all()
                     ],
                 ];
                 return response()->json($response);
