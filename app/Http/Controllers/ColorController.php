@@ -18,16 +18,16 @@ class ColorController extends Controller
         $all_colors = Color::all();
         if ($all_colors) {
             $response = [
-                "body" => [
-                    "status" => 200,
+                "status" => 200,
+                "data" => [
                     "all_colors" => $all_colors
                 ],
             ];
             return response()->json($response);
         } else {
             $response = [
-                "body" => [
-                    "status" => 500,
+                "status" => 500,
+                "data" => [
                     "message" => "Something went wrong"
                 ],
             ];
@@ -45,16 +45,16 @@ class ColorController extends Controller
         $color->isActive = $request->isActive;
         if ($color->save()) {
             $response = [
-                "body" => [
-                    "status" => 200,
+                "status" => 200,
+                "data" => [
                     "colorDetails" => $color
                 ],
             ];
             return response()->json($response);
         } else {
             $response = [
-                "body" => [
-                    "status" => 500,
+                "status" => 500,
+                "data" => [
                     "message" => "Something went wrong"
                 ],
             ];
@@ -77,16 +77,16 @@ class ColorController extends Controller
         $color = Color::find($id);
         if (!empty($color)) {
             $response = [
-                "body" => [
-                    "status" => 200,
+                "status" => 200,
+                "data" => [
                     "color" => $color
                 ],
             ];
             return response()->json($response);
         } else {
             $response = [
-                "body" => [
-                    "status" => 500,
+                "status" => 500,
+                "data" => [
                     "message" => "Color doesn't exist"
                 ],
             ];
@@ -119,8 +119,8 @@ class ColorController extends Controller
             ];
             if ($color->save()) {
                 $response = [
-                    "body" => [
-                        "status" => 200,
+                    "status" => 200,
+                    "data" => [
                         "message" => "Updated successfully",
                         "colorDetails" => $color
                     ],
@@ -128,8 +128,8 @@ class ColorController extends Controller
                 return response()->json($response);
             } else {
                 $response = [
-                    "body" => [
-                        "status" => 500,
+                    "status" => 500,
+                    "data" => [
                         "message" => "Something went wrong"
                     ],
                 ];
@@ -137,8 +137,8 @@ class ColorController extends Controller
             };
         } else {
             $response = [
-                "body" => [
-                    "status" => 500,
+                "status" => 500,
+                "data" => [
                     "message" => "Color doesn't exist"
                 ],
             ];
@@ -156,16 +156,16 @@ class ColorController extends Controller
         if (!empty($color)) {
             if ($color->delete()) {
                 $response = [
-                    "body" => [
-                        "status" => 200,
+                    "status" => 200,
+                    "data" => [
                         "message" => "Deleted successfully"
                     ],
                 ];
                 return response()->json($response);
             } else {
                 $response = [
-                    "body" => [
-                        "status" => 500,
+                    "status" => 500,
+                    "data" => [
                         "message" => "Something went wrong"
                     ],
                 ];
@@ -173,8 +173,8 @@ class ColorController extends Controller
             }
         } else {
             $response = [
-                "body" => [
-                    "status" => 500,
+                "status" => 500,
+                "data" => [
                     "message" => "Color doesn't exist"
                 ],
             ];
