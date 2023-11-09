@@ -15,7 +15,10 @@ class ColorController extends Controller
      */
     public function index()
     {
-        $all_colors = Color::all();
+        $all_colors = Color::all()->map(function ($color) {
+            $color->isActive = $color->isActive == 1 ? 'Active' : 'Deactivated';
+            return $color;
+        });
         if ($all_colors) {
             $response = [
                 "status" => 200,
@@ -155,10 +158,15 @@ class ColorController extends Controller
 
         if (!empty($color)) {
             if ($color->delete()) {
+                $all_colors = Color::all()->map(function ($color) {
+                    $color->isActive = $color->isActive == 1 ? 'Active' : 'Deactivated';
+                    return $color;
+                });
                 $response = [
                     "status" => 200,
                     "data" => [
-                        "message" => "Deleted successfully"
+                        "message" => "Deleted successfully",
+                        "colors" => $all_colors
                     ],
                 ];
                 return response()->json($response);
