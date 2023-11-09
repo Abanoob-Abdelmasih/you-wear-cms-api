@@ -157,11 +157,15 @@ class SizeController extends Controller
 
         if (!empty($size)) {
             if ($size->delete()) {
+                $all_Sizes = Size::all()->map(function ($size) {
+                    $size->isActive = $size->isActive == 1 ? 'Active' : 'Deactivated';
+                    return $size;
+                });
                 $response = [
                     "status" => 200,
                     "data" => [
                         "message" => "Deleted successfully",
-                        "sizes" => Size::all()
+                        "sizes" => $all_Sizes
                     ],
                 ];
                 return response()->json($response);
