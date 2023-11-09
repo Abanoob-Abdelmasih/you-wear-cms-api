@@ -13,8 +13,13 @@ class SizeController extends Controller
      */
     public function index()
     {
-        $all_Sizes = Size::all();
-        if ($all_Sizes) {
+        $data = Size::all();
+
+        if ($data) {
+            $all_Sizes = $data->map(function ($size) {
+                $size->isActive = $size->isActive == 1 ? 'Active' : 'Deactivated';
+                return $size;
+            });
             $response = [
                 "status" => 200,
                 "data" => [
