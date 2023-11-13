@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,4 +37,5 @@ Route::prefix('/color')->name('color.')->group(function () {
     Route::get('/{id}', [ColorController::class, 'show']);
 });
 
-Route::get('/test-piv', [SizeController::class,'many2ManyExamples']);
+Route::get('/test-piv', [SizeController::class, 'many2ManyExamples']);
+Route::post('/test-image', [ProductController::class, 'addProduct']);
