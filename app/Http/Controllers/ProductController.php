@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -60,5 +62,28 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function imgTemp(Request $request)
+    {
+
+        dd($request->file('images'));
+        $imageNames = [];
+        foreach ($request->file('images') as $key => $image) {
+            $newImageName = time() . '-' . $request->name[$key] . '.' . $image->extension();
+            $image->move(public_path('images'), $newImageName);
+            $imageNames[] = $newImageName;
+        }
+    }
+
+    public function addProduct(Request $request)
+    {
+        foreach ($request->file('images') as  $image) {
+            $newImageName = uniqid() . '.' . $image->extension();
+            $image->storeAs( 'public/product_images', $newImageName);
+            $imageNames[] = $newImageName;
+        }
+        $imageUrl = public_path() . '/product_images';
+        return response()->json($imageUrl);
     }
 }
