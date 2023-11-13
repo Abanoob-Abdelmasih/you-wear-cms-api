@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductConfiguration;
 use App\Models\Size;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product = Product::find(1)->with('productconfigurations.color','productconfigurations.size')->get();
+        return response()->json($product);
     }
 
     /**
@@ -80,7 +83,7 @@ class ProductController extends Controller
     {
         foreach ($request->file('images') as  $image) {
             $newImageName = uniqid() . '.' . $image->extension();
-            $image->storeAs( 'public/product_images', $newImageName);
+            $image->storeAs('public/product_images', $newImageName);
             $imageNames[] = $newImageName;
         }
         $imageUrl = public_path() . '/product_images';
