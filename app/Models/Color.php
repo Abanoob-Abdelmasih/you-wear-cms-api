@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Color extends Model
 {
-    protected $hidden = ["created_at", "updated_at","isActive"];
+    protected $hidden = ["created_at", "updated_at", "isActive"];
     use HasFactory;
 
     public function sizes()
     {
-        return $this->belongsToMany(Size::class, ProductConfiguration::class, 'color_id', 'size_id')->withTimestamps()->as('configuration');
+        return $this->belongsToMany(Size::class, ProductConfiguration::class, 'color_id', 'size_id')->withTimestamps();
+        // ->as('configuration'); does not work if u have custom name pivot table
     }
 }
