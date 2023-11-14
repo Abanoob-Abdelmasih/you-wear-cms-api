@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::find(1)->with('productconfigurations.color','productconfigurations.size')->get();
+        $product = Product::find(1)->with('configuration.color','configuration.size')->get();
         return response()->json($product);
     }
 
