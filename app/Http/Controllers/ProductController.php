@@ -26,11 +26,12 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         // dd($request->all());
+        $configs = json_decode($request->config,true);
         $product = new Product();
         $product->name = $request->name;
         $product->save();
 
-        foreach ($request->config as  $config) {
+        foreach ($configs as  $config) {
             $new_config = new ProductConfiguration();
             $new_config->color_id = $config['color_id'];
             $new_config->size_id = $config['size_id'];
@@ -47,7 +48,7 @@ class ProductController extends Controller
             $new_image->product_id = $product->id;
             $new_image->save();
         }
-        return response()->json($product->with('configuration.color', 'configuration.color', 'productImages')->get());
+        // return response()->json($product->with('configuration.color', 'configuration.size', 'productImages')->get());
     }
 
     /**
