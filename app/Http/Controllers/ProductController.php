@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductConfiguration;
+use App\Models\ProductImage;
 use App\Models\Size;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
+        // dd($request->all());
         $product = new Product();
         $product->name = $request->name;
         $product->save();
@@ -36,7 +38,16 @@ class ProductController extends Controller
             $new_config->product_id = $product->id;
             $new_config->save();
         }
-        return response()->json($product->with('configuration.color','configuration.size')->get());
+
+        foreach ($request->file('images') as  $image) {
+            $new_image = new ProductImage();
+            $newImageName = uniqid() . '.' . $image->extension();
+            $image->storeAs('public/product_images', $newImageName);
+            $new_image->url = $newImageName;
+            $new_image->product_id = $product->id;
+            $new_image->save();
+        }
+        return response()->json($product->with('configuration.color', 'configuration.color', 'productImages')->get());
     }
 
     /**
