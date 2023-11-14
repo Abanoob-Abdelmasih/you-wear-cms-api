@@ -37,6 +37,14 @@ Route::prefix('/color')->name('color.')->group(function () {
     Route::get('/{id}', [ColorController::class, 'show']);
 });
 
+Route::prefix('/product')->name('product.')->group(function () {
+    Route::post('create', [ProductController::class, 'create']);
+    Route::get('all', [ProductController::class, 'index']);
+    Route::post('{id}/delete', [ProductController::class, 'destroy']);
+    Route::post('{id}/update', [ProductController::class, 'update']);
+    Route::get('/{id}', [ProductController::class, 'show']);
+});
+
 Route::get('/test-piv', [SizeController::class, 'many2ManyExamples']);
 Route::post('/test-image', [ProductController::class, 'addProduct']);
 Route::get('/test-api', [ProductController::class, 'index']);
