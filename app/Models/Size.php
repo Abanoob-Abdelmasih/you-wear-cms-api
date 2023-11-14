@@ -13,6 +13,7 @@ class Size extends Model
     use HasFactory;
     public function colors()
     {
-        return $this->belongsToMany(Color::class, ProductConfiguration::class, 'size_id', 'color_id')->withTimestamps()->as('configuration');
+        return $this->belongsToMany(Color::class, ProductConfiguration::class, 'size_id', 'color_id')->withTimestamps();
+        // ->as('configuration'); does not work if u have custom name pivot table
     }
 }
