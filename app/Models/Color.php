@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Color extends Model
 {
-    protected $hidden = ["created_at", "updated_at"];
+    protected $hidden = ["created_at", "updated_at","isActive"];
     use HasFactory;
 
     public function sizes()
     {
-        return $this->belongsToMany(Size::class, ProductConfiguration::class)->withTimestamps()->as('configuration');
+        return $this->belongsToMany(Size::class, ProductConfiguration::class, 'color_id', 'size_id')->withTimestamps()->as('configuration');
     }
 }
