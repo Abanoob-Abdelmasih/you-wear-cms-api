@@ -15,16 +15,28 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::find(1)->with('configuration.color','configuration.size')->get();
+        $product = Product::find(1)->with('configuration.color', 'configuration.size')->get();
         return response()->json($product);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $product = new Product();
+        $product->name = $request->name;
+        $product->save();
+
+        foreach ($request->config as  $config) {
+            $new_config = new ProductConfiguration();
+            $new_config->color_id = $config['color_id'];
+            $new_config->size_id = $config['size_id'];
+            $new_config->quantity = $config['quantity'];
+            $new_config->product_id = $product->id;
+            $new_config->save();
+        }
+        return response()->json($product->with('configuration.color','configuration.size')->get());
     }
 
     /**
