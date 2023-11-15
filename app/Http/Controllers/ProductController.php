@@ -65,7 +65,28 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // $configs = json_decode($request->config, true);
+        $configs = $request->config;
+        $product = Product::find($id);
+        $product->name = $request->name === null || '' ? $product->name : $request->name;
+        $product->save();
 
+        foreach ($configs as  $config) {
+            if (isset($config['id'])) {
+                $existing_config = ProductConfiguration::find($config['id']);
+                $existing_config->color_id = $config['color_id'];
+                $existing_config->size_id = $config['size_id'];
+                $existing_config->quantity = $config['quantity'];
+                $existing_config->save();
+            } else {
+                $new_config = new ProductConfiguration();
+                $new_config->color_id = $config['color_id'];
+                $new_config->size_id = $config['size_id'];
+                $new_config->quantity = $config['quantity'];
+                $new_config->product_id = $product->id;
+                $new_config->save();
+            }
+        }
     }
 
     /**
