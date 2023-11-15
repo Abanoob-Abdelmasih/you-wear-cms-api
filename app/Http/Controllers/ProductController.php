@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function create(Request $request)
     {
         // dd($request->all());
-        $configs = json_decode($request->config,true);
+        $configs = json_decode($request->config, true);
         $product = new Product();
         $product->name = $request->name;
         $product->save();
@@ -64,7 +64,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $product = Product::find($id)->with('configuration.color', 'configuration.size')->get();
+        return response()->json($product);
     }
 
     /**
