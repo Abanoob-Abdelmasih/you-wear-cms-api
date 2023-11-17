@@ -66,10 +66,35 @@ class ProductController extends Controller
             // $images[] = url()->current() . $image->url;
             // array_push($images, public_path('/storage/product_images') . $image->url);
         }
+        // $file = new File(public_path('/storage/product_images/6553b67260d2a.png'));
+
+        // Relative path to the existing image file within the public directory
+        $relativeImagePath = 'images/your-image.jpg';
+
+        // Get the absolute path using public_path()
+        $imagePath = public_path('storage\product_images\6553b67260d2a.png');
+
+        // Get the file name from the path
+        $filename = pathinfo($imagePath, PATHINFO_FILENAME);
+
+        // Get the file extension from the path
+        $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+
+        // Create a new UploadedFile instance
+        $file = new UploadedFile(
+            $imagePath,
+            '6553b67260d2a.png'
+        );
+
+        // dd($file->isValid());
+
         $response = [
             "product" => $product,
-            "images" => $images
+            "images" => $images,
+            "file" => $file
         ];
+
+
         return response()->json($response);
     }
 
