@@ -47,4 +47,3 @@ Route::prefix('/product')->name('product.')->group(function () {
 
 Route::get('/test-piv', [SizeController::class, 'many2ManyExamples']);
 Route::post('/test-image', [ProductController::class, 'addProduct']);
-Route::get('/test-api', [ProductController::class, 'index']);
