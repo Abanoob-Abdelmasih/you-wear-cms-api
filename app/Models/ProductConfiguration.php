@@ -11,7 +11,7 @@ class ProductConfiguration extends Model
 {
     use HasFactory;
     protected $table = 'product_configuration';
-    protected $hidden = ["product_id", "created_at", "updated_at",];
+    protected $hidden = ["product_id", "created_at", "updated_at","color_id","size_id"];
 
 
     public function product()
