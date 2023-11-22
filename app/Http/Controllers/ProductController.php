@@ -153,26 +153,17 @@ class ProductController extends Controller
         $product->delete();
     }
 
-    public function imgTemp(Request $request)
+    public function getConfiguration(Request $request)
     {
-
-        dd($request->file('images'));
-        $imageNames = [];
-        foreach ($request->file('images') as $key => $image) {
-            $newImageName = time() . '-' . $request->name[$key] . '.' . $image->extension();
-            $image->move(public_path('images'), $newImageName);
-            $imageNames[] = $newImageName;
+        if ($request->has('color_id') && $request->has('size_id')) {
+            $product = ProductConfiguration::where('color_id', '=',  $request->color_id)->where('size_id', '=', $request->size_id)->with('color', 'size')->get();
+            return response()->json($product);
+        } else if ($request->has('color_id')) {
+            $product = ProductConfiguration::where('color_id', '=', $request->color_id)->with('color', 'size')->get();
+            return response()->json($product);
+        }else{
+            $product = ProductConfiguration::where('size_id', '=', $request->size_id)->with('color', 'size')->get();
+            return response()->json($product);
         }
-    }
-
-    public function addProduct(Request $request)
-    {
-        foreach ($request->file('images') as  $image) {
-            $newImageName = uniqid() . '.' . $image->extension();
-            $image->storeAs('public/product_images', $newImageName);
-            $imageNames[] = $newImageName;
-        }
-        $imageUrl = public_path() . '/product_images';
-        return response()->json($imageUrl);
     }
 }
