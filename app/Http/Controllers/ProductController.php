@@ -66,16 +66,48 @@ class ProductController extends Controller
     {
         $product = Product::find($id)->with('configuration.color', 'configuration.size')->first();
         $groupedConfigurations = $product->configuration;
+
+        $uniqueColors = [];
+        $uniqueSizes = [];
+
+        foreach ($groupedConfigurations as $item) {
+            $colorId = $item['color']['id'];
+            $colorName = $item['color']['name'];
+
+            // Check if the color ID is not already in the $uniqueColors array
+            if (!array_key_exists($colorId, $uniqueColors)) {
+                // Add the color ID and name to the $uniqueColors array
+                $uniqueColors[$colorId] = $colorName;
+            }
+
+            $sizeId = $item['size']['id'];
+            $sizeName = $item['size']['name'];
+
+            // Check if the size ID is not already in the $uniqueSizes array
+            if (!array_key_exists($sizeId, $uniqueSizes)) {
+                // Add the size ID and name to the $uniqueSizes array
+                $uniqueSizes[$sizeId] = $sizeName;
+            }
+        }
+
+
         $raw_images = ProductImage::where('product_id', '=', $id)->get();
         foreach ($raw_images as $image) {
             $images[] = url('/storage/product_images/' . $image->url);
         }
 
+        $pathToFile = 'http://127.0.0.1:8000/storage/product_images/6553b67263255.jpg';
+        $pathToFile = public_path('storage/product_images/6553b67263255.jpg');
+        // dd($pathToFile);
+        // $file = new UploadedFile($pathToFile, 'test');
+
 
         $response = [
             "name" => $product->name,
-            "config" => $groupedConfigurations,
+            // "config" => $groupedConfigurations,
             "images" => $images,
+            "colors" => $uniqueColors,
+            "sizes" => $uniqueSizes,
             // "file" => $file,
         ];
 
