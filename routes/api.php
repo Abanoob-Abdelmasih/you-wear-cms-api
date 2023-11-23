@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SizeController;
@@ -43,6 +44,10 @@ Route::prefix('/product')->name('product.')->group(function () {
     Route::post('{id}/delete', [ProductController::class, 'destroy']);
     Route::post('{id}/update', [ProductController::class, 'update']);
     Route::get('/{id}', [ProductController::class, 'show']);
+});
+
+Route::prefix('/cart')->name('cart.')->group(function () {
+    Route::post('addToCart', [CartController::class, 'addToCart']);
 });
 
 Route::get('/test-piv', [SizeController::class, 'many2ManyExamples']);
