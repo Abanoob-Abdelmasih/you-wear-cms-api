@@ -40,6 +40,22 @@ class CartController extends Controller
 
     public function removeFromCart(Request $request)
     {
-
+        if(Cart::destroy($request->id)){
+            $response = [
+                "status" => 200,
+                "data" => [
+                    "message" => "Deleted successfully",
+                ],
+            ];
+            return response()->json($response);
+        } else {
+            $response = [
+                "status" => 500,
+                "data" => [
+                    "message" => "Something went wrong"
+                ],
+            ];
+            return response()->json($response);
+        }
     }
 }
