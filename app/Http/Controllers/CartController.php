@@ -15,4 +15,8 @@ class CartController extends Controller
         $newCartItem->qunatity = $request->qunatity;
         $newCartItem->save();
     }
+
+    public function deleteFromCart(Request $request){
+
+    }
 }
