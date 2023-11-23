@@ -28,4 +28,8 @@ class ProductConfiguration extends Model
     {
         return $this->belongsTo(Size::class, 'size_id');
     }
+
+    public function carts(){
+        return $this->hasMany(Cart::class);
+    }
 }
