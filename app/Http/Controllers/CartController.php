@@ -21,7 +21,7 @@ class CartController extends Controller
         $rawCart = Cart::where("user_id", '=', $id)->with('productConfiguration.color', 'productConfiguration.product', 'productConfiguration.size')->get();
         $attributesArray = $rawCart->map(function ($item) {
             return [
-                'product_id' => $item->id,
+                'cart_id' => $item->id,
                 'qunatity' => $item->qunatity,
                 'product' => $item->productConfiguration->product,
                 'color' => $item->productConfiguration->color,
@@ -39,7 +39,8 @@ class CartController extends Controller
         return response()->json($response);
     }
 
-    public function deleteFromCart(Request $request)
+    public function removeFromCart(Request $request)
     {
+
     }
 }
