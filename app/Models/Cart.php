@@ -10,4 +10,8 @@ class Cart extends Model
     use HasFactory;
 
     protected $hidden = ["created_at", "updated_at"];
+
+    public function productConfiguration(){
+        return $this->belongsTo(ProductConfiguration::class);
+    }
 }
