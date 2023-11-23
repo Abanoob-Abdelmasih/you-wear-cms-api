@@ -49,6 +49,7 @@ Route::prefix('/product')->name('product.')->group(function () {
 Route::prefix('/cart')->name('cart.')->group(function () {
     Route::post('addToCart', [CartController::class, 'addToCart']);
     Route::get('showCart/{id}', [CartController::class, 'showCart']);
+    Route::post('removeFromCart', [CartController::class, 'removeFromCart']);
 });
 
 Route::get('/test-piv', [SizeController::class, 'many2ManyExamples']);
