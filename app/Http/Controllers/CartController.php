@@ -19,7 +19,7 @@ class CartController extends Controller
     public function showCart(string $id)
     {
         $rawCart = Cart::where("user_id", '=', $id)->with('productConfiguration.color', 'productConfiguration.product', 'productConfiguration.size')->get();
-        $attributesArray = $rawCart->map(function ($item) {
+        $cart = $rawCart->map(function ($item) {
             return [
                 'cart_id' => $item->id,
                 'qunatity' => $item->qunatity,
@@ -31,8 +31,7 @@ class CartController extends Controller
         $response = [
             "status" => 200,
             "data" => [
-                "cart" =>$attributesArray,
-
+                "cart" =>$cart,
             ],
         ];
 
