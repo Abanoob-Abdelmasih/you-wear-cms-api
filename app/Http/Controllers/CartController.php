@@ -45,7 +45,7 @@ class CartController extends Controller
             $response = [
                 "status" => 200,
                 "data" => [
-                    "message" => "Deleted successfully",
+                    "message" => "Item removed successfully",
                 ],
             ];
             return response()->json($response);
@@ -63,11 +63,50 @@ class CartController extends Controller
     public function updateCart(Request $request)
     {
         $productQty = ProductConfiguration::find($request->product_id);
-        dd($productQty);
         $cart = Cart::find($request->cart_id);
-        return response()->json([
-            "productQty" => $productQty,
-            "cart" => $cart
-        ]);
+        if ($request->updateType === 'add' && intval($productQty->quantity) > intval($cart->quantity) + 1) {
+            $cart->quantity = $cart->quantity + 1;
+            $cart->save();
+            $response = [
+                "status" => 200,
+                "data" => [
+                    "message" => "Cart Updated",
+                    "cart" => $cart
+                ],
+            ];
+            return response()->json($response);
+        } else if($request->updateType === 'add' && intval($productQty->quantity) < intval($cart->quantity) + 1) {
+            $response = [
+                "status" => 500,
+                "data" => [
+                    "message" => "Out of Stock"
+                ],
+            ];
+            return response()->json($response);
+        }
+
+        if ($request->updateType === "sub") {
+
+            $cart->quantity = $cart->quantity - 1;
+            if ($cart->quantity === 0) {
+                Cart::destroy($request->cart_id);
+                $response = [
+                    "status" => 200,
+                    "data" => [
+                        "message" => "Item removed successfully",
+                    ],
+                ];
+                return response()->json($response);
+            } else if ($cart->save()) {
+                $response = [
+                    "status" => 200,
+                    "data" => [
+                        "message" => "Cart Updated",
+                        "cart" => $cart
+                    ],
+                ];
+                return response()->json($response);
+            }
+        }
     }
 }
