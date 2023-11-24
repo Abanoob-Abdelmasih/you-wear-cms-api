@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\ProductConfiguration;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -31,7 +32,7 @@ class CartController extends Controller
         $response = [
             "status" => 200,
             "data" => [
-                "cart" =>$cart,
+                "cart" => $cart,
             ],
         ];
 
@@ -40,7 +41,7 @@ class CartController extends Controller
 
     public function removeFromCart(Request $request)
     {
-        if(Cart::destroy($request->id)){
+        if (Cart::destroy($request->id)) {
             $response = [
                 "status" => 200,
                 "data" => [
@@ -57,5 +58,16 @@ class CartController extends Controller
             ];
             return response()->json($response);
         }
+    }
+
+    public function updateCart(Request $request)
+    {
+        $productQty = ProductConfiguration::find($request->product_id);
+        dd($productQty);
+        $cart = Cart::find($request->cart_id);
+        return response()->json([
+            "productQty" => $productQty,
+            "cart" => $cart
+        ]);
     }
 }
