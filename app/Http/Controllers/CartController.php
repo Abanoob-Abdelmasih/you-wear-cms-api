@@ -13,7 +13,7 @@ class CartController extends Controller
         $newCartItem = new Cart();
         $newCartItem->user_id = $request->user_id;
         $newCartItem->product_configuration_id = $request->product_configuration_id;
-        $newCartItem->qunatity = $request->qunatity;
+        $newCartItem->quantity = $request->quantity;
         $newCartItem->save();
     }
 
@@ -23,7 +23,7 @@ class CartController extends Controller
         $cart = $rawCart->map(function ($item) {
             return [
                 'cart_id' => $item->id,
-                'qunatity' => $item->qunatity,
+                'quantity' => $item->quantity,
                 'product' => $item->productConfiguration->product,
                 'color' => $item->productConfiguration->color,
                 'size' => $item->productConfiguration->size,
